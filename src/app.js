@@ -1,27 +1,36 @@
-import React, {useCallback} from 'react';
+import React, { useCallback, useState } from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
+import Basket from './components/basket';
 
 /**
  * Приложение
  * @param store {Store} Состояние с действиями
  */
-function App({store}) {
+function App({ store }) {
+  const [popupVsbl, setPopupVsbl] = useState(false)
   console.log('App');
 
   const callbacks = {
-    onCreateItem: useCallback(() => store.createItem(), [store]),
-    onSelectItem: useCallback((code) => store.selectItem(code), [store]),
-    onDeleteItem: useCallback((code) => store.deleteItem(code), [store])
+    onClickBasket: useCallback(() => setPopupVsbl(prev => !prev), [setPopupVsbl]),
+    onAddGoods: useCallback((code) => store.onAddGoods(code), [store])
   }
 
   return (
     <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onCreate={callbacks.onCreateItem}/>
-      <List items={store.getState().items}
-            onSelectItem={callbacks.onSelectItem}
-            onDeleteItem={callbacks.onDeleteItem}/>
+      <Controls
+        items={store.getState().items}
+        onClickBasket={callbacks.onClickBasket} 
+      />
+      <List 
+        items={store.getState().items}
+        onAddGoods={callbacks.onAddGoods}
+      />
+      {popupVsbl && <Basket 
+        items={store.getState().items} 
+        onClickBasket={callbacks.onClickBasket} 
+      />}
     </Layout>
   );
 }

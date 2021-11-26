@@ -51,7 +51,7 @@ class Store {
     this.setState({
       items: this.state.items.concat({
         code,
-        title: 'Новая запись №'+code
+        title: 'Новая запись №' + code
       })
     });
   }
@@ -60,26 +60,13 @@ class Store {
    * Удаление записи по её коду
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
+  onAddGoods(code) {
     this.setState({
       items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected
-          };
+        if (item.code === code) {
+          item.count ? item.count++ : item.count = 1
         }
-        return item;
+        return item
       })
     });
   }

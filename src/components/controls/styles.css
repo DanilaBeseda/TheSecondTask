@@ -3,4 +3,8 @@
     display: flex;
     justify-content: flex-end;
     padding: 20px;
+    align-items: center;
+}
+.Controls__info{
+    margin-right: 25px;
 }
