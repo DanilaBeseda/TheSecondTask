@@ -6,13 +6,11 @@ import './styles.css';
 function Item({ item, onAdd }) {
   console.log('Item', item.title);
 
-  const [counter, setCounter] = useState(0);
-
   return (
     <div className='Item'>
-      <ItemInfo item={item}/>
+      <ItemInfo item={item} />
       <div className='Item__actions'>
-        <button onClick={() => onAdd(item.code)}>
+        <button onClick={() => onAdd(item)}>
           Добавить
         </button>
       </div>
@@ -26,7 +24,7 @@ Item.propTypes = {
 }
 
 Item.defaultProps = {
-  onAdd: () => {}
+  onAdd: () => { }
 }
 
 export default React.memo(Item);

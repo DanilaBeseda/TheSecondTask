@@ -14,22 +14,22 @@ function App({ store }) {
 
   const callbacks = {
     onClickBasket: useCallback(() => setPopupVsbl(prev => !prev), [setPopupVsbl]),
-    onAddGoods: useCallback((code) => store.onAddGoods(code), [store])
+    onAddGoods: useCallback((item) => store.onAddGoods(item), [store])
   }
 
   return (
     <Layout head={<h1>Приложение на чистом JS</h1>}>
       <Controls
-        items={store.getState().items}
-        onClickBasket={callbacks.onClickBasket} 
+        basket={store.getState().basket}
+        onClickBasket={callbacks.onClickBasket}
       />
-      <List 
+      <List
         items={store.getState().items}
         onAddGoods={callbacks.onAddGoods}
       />
-      {popupVsbl && <Basket 
-        items={store.getState().items} 
-        onClickBasket={callbacks.onClickBasket} 
+      {popupVsbl && <Basket
+        basket={store.getState().basket}
+        onClickBasket={callbacks.onClickBasket}
       />}
     </Layout>
   );

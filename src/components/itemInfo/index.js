@@ -2,8 +2,9 @@ import React from 'react';
 import propTypes from 'prop-types';
 import './styles.css'
 
-function ItemInfo({item}) {
-   return(
+function ItemInfo({ item }) {
+   console.log('itemInfo')
+   return (
       <>
          <div className='Item__number'>{item.code}</div>
          <div className='Item__title'>{item.title}</div>

@@ -60,15 +60,8 @@ class Store {
    * Удаление записи по её коду
    * @param code
    */
-  onAddGoods(code) {
-    this.setState({
-      items: this.state.items.map(item => {
-        if (item.code === code) {
-          item.count ? item.count++ : item.count = 1
-        }
-        return item
-      })
-    });
+  onAddGoods(item) {
+    this.setState({ ...this.state, basket: this.state.basket.concat(item) });
   }
 }
 

@@ -3,8 +3,26 @@ import propTypes from 'prop-types';
 import ItemInfo from '../ItemInfo';
 import './styles.css';
 
-function Basket({items, onClickBasket}) {
+function Basket({ basket, onClickBasket }) {
    console.log('Basket')
+
+   function conversionBasketItems() {
+      const arr = []
+
+      basket.forEach(i => {
+         const index = arr.findIndex(j => j.code === i.code)
+
+         if (index !== -1) {
+            arr[index].count++
+         } else {
+            i.count = 1
+            arr.push(i)
+         }
+      })
+
+      return arr
+   }
+
    return (
       <div className='bcg'>
          <div className='Popup'>
@@ -14,28 +32,23 @@ function Basket({items, onClickBasket}) {
                <button onClick={onClickBasket}>Закрыть</button>
             </div>
 
-            <ul className='List'>{items.map(item => {
-               if(item.count) {
-                  return <li className='List__item Item' key={item.code}>
-                     <ItemInfo item={item}/>
-                     <div className='Item__count'>{item.count} шт</div>
-                  </li>
-               }
-               })}
+            <ul className='List'>{conversionBasketItems().map(item => (
+               <li className='List__item Item' key={item.code}>
+                  <ItemInfo item={item} />
+                  <div className='Item__count'>{item.count} шт</div>
+               </li>
+            ))}
 
                <b><li className='Item'>
-                     <div className='Item__total'>Итого</div>
+                  <div className='Item__total'>Итого</div>
 
-                     <div className='Item__price'>
-                        {new Intl.NumberFormat('ru-RU').format(items.reduce((p, c) => (
-                           c.count ? p + c.count * c.price : p
-                        ), 0))}
-                        ₽
-                     </div>
-                     
-                     <div className='Item__count'>
-                        {items.reduce((p, c) => c.count ? p + c.count : p, 0)} шт
-                     </div>
+                  <div className='Item__price'>
+                     {new Intl.NumberFormat('ru-RU').format(basket.reduce((p, c) => p + c.price, 0))} ₽
+                  </div>
+
+                  <div className='Item__count'>
+                     {basket.length} шт
+                  </div>
                </li></b>
             </ul>
 
@@ -45,13 +58,13 @@ function Basket({items, onClickBasket}) {
 }
 
 Basket.propTypes = {
-   items: propTypes.arrayOf(propTypes.object).isRequired,
+   basket: propTypes.arrayOf(propTypes.object).isRequired,
    onClickBasket: propTypes.func.isRequired
 }
 
 Basket.defaultProps = {
-   item: [],
-   onClickBasket: () => {}
+   basket: [],
+   onClickBasket: () => { }
 }
 
 export default Basket;
