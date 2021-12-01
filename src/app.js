@@ -23,7 +23,7 @@ function App({ store }) {
       store.getState().basket.reduce((p, c) => p + c.price * c.count, 0), //price
       store.getState().basket.reduce((p, c) => p + c.count, 0)            //count
     ]
-  }, [store.getState()])
+  }, [store.getState().basket])
 
   return (
     <Layout head={<h1>Магазин</h1>}>

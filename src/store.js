@@ -61,7 +61,7 @@ class Store {
    * @param code
    */
   onAddGoods(item) {
-    const basket = this.state.basket
+    const basket = [...this.state.basket]
     const index = basket.findIndex(bItem => bItem.code === item.code)
 
     if (index === -1) {
