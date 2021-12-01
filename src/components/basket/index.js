@@ -3,25 +3,8 @@ import propTypes from 'prop-types';
 import ItemInfo from '../ItemInfo';
 import './styles.css';
 
-function Basket({ basket, onClickBasket }) {
+function Basket({ basket, sumOfBasket, onClickBasket }) {
    console.log('Basket')
-
-   function conversionBasketItems() {
-      const arr = []
-
-      basket.forEach(i => {
-         const index = arr.findIndex(j => j.code === i.code)
-
-         if (index !== -1) {
-            arr[index].count++
-         } else {
-            i.count = 1
-            arr.push(i)
-         }
-      })
-
-      return arr
-   }
 
    return (
       <div className='bcg'>
@@ -32,7 +15,7 @@ function Basket({ basket, onClickBasket }) {
                <button onClick={onClickBasket}>Закрыть</button>
             </div>
 
-            <ul className='List'>{conversionBasketItems().map(item => (
+            <ul className='List'>{basket.map(item => (
                <li className='List__item Item' key={item.code}>
                   <ItemInfo item={item} />
                   <div className='Item__count'>{item.count} шт</div>
@@ -41,13 +24,11 @@ function Basket({ basket, onClickBasket }) {
 
                <b><li className='Item'>
                   <div className='Item__total'>Итого</div>
-
                   <div className='Item__price'>
-                     {new Intl.NumberFormat('ru-RU').format(basket.reduce((p, c) => p + c.price, 0))} ₽
+                     {new Intl.NumberFormat('ru-RU').format(sumOfBasket[0])} ₽
                   </div>
-
                   <div className='Item__count'>
-                     {basket.length} шт
+                     {sumOfBasket[1]} шт
                   </div>
                </li></b>
             </ul>
@@ -59,11 +40,13 @@ function Basket({ basket, onClickBasket }) {
 
 Basket.propTypes = {
    basket: propTypes.arrayOf(propTypes.object).isRequired,
+   sumOfBasket: propTypes.array.isRequired,
    onClickBasket: propTypes.func.isRequired
 }
 
 Basket.defaultProps = {
    basket: [],
+   sumOfBasket: [],
    onClickBasket: () => { }
 }
 

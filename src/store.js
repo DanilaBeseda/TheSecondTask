@@ -61,7 +61,16 @@ class Store {
    * @param code
    */
   onAddGoods(item) {
-    this.setState({ ...this.state, basket: this.state.basket.concat(item) });
+    const basket = this.state.basket
+    const index = basket.findIndex(bItem => bItem.code === item.code)
+
+    if (index === -1) {
+      item.count = 1
+      this.setState({ ...this.state, basket: basket.concat(item) });
+    } else {
+      basket[index].count++
+      this.setState({ ...this.state, basket })
+    }
   }
 }
 
