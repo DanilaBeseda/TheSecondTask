@@ -12,7 +12,6 @@ function App({ store }) {
   console.log('App', store.getState());
 
   const [popupVsbl, setPopupVsbl] = useState(false)
-  const sumOfBasket = useMemo(() => store.getSumOfBasket(), [store.getState().basket])
 
   const callbacks = {
     onClickBasket: useCallback(() => setPopupVsbl(prev => !prev), [setPopupVsbl]),
@@ -22,7 +21,7 @@ function App({ store }) {
   return (
     <Layout head={<h1>Магазин</h1>}>
       <Controls
-        sumOfBasket={sumOfBasket}
+        sumOfBasket={store.getState().sumOfBasket}
         onClickBasket={callbacks.onClickBasket}
       />
       <List
@@ -31,7 +30,7 @@ function App({ store }) {
       />
       {popupVsbl && <Basket
         basket={store.getState().basket}
-        sumOfBasket={sumOfBasket}
+        sumOfBasket={store.getState().sumOfBasket}
         onClickBasket={callbacks.onClickBasket}
       />}
     </Layout>

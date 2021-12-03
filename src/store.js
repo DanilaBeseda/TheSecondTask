@@ -72,13 +72,17 @@ class Store {
       basket[index].count++
       this.setState({ ...this.state, basket })
     }
+
+    this.setSumOfBasket()
   }
 
-  getSumOfBasket() {
-    return [
-      this.state.basket.reduce((p, c) => p + c.price * c.count, 0), //price
-      this.state.basket.reduce((p, c) => p + c.count, 0)            //count
-    ]
+  setSumOfBasket() {
+    this.setState({
+      ...this.state, sumOfBasket: [
+        this.state.basket.reduce((p, c) => p + c.price * c.count, 0), //price
+        this.state.basket.reduce((p, c) => p + c.count, 0)            //count
+      ]
+    })
   }
 }
 
