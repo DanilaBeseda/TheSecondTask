@@ -63,28 +63,23 @@ class Store {
   addGoods(code) {
     const basket = [...this.state.basket]
     const index = basket.findIndex(item => item.code === code)
+    const sum = [...this.state.sumOfBasket]
+
+    sum[1]++
 
     if (index === -1) {
       const item = { ...this.state.items.find(item => item.code === code) }
       item.count = 1
+      sum[0] += item.price
 
-      this.setState({ ...this.state, basket: basket.concat(item) });
-      this.setSumOfBasket(item.price)
+      this.setState({ ...this.state, basket: basket.concat(item), sumOfBasket: sum });
     } else {
       basket[index].count++
+      sum[0] += basket[index].price
 
-      this.setState({ ...this.state, basket })
-      this.setSumOfBasket(basket[index].price)
+      this.setState({ ...this.state, basket, sumOfBasket: sum })
     }
 
-  }
-
-  setSumOfBasket(price) {
-    const sum = [...this.state.sumOfBasket]
-    sum[0] += price
-    sum[1] += 1
-
-    this.setState({ ...this.state, sumOfBasket: sum })
   }
 }
 
