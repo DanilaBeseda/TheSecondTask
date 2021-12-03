@@ -9,21 +9,15 @@ import Basket from './components/basket';
  * @param store {Store} Состояние с действиями
  */
 function App({ store }) {
-  console.log('App');
+  console.log('App', store.getState());
 
   const [popupVsbl, setPopupVsbl] = useState(false)
+  const sumOfBasket = useMemo(() => store.getSumOfBasket(), [store.getState().basket])
 
   const callbacks = {
     onClickBasket: useCallback(() => setPopupVsbl(prev => !prev), [setPopupVsbl]),
-    onAddGoods: useCallback((item) => store.onAddGoods(item), [store])
+    onAddGoods: useCallback((item) => store.addGoods(item), [store]),
   }
-
-  const sumOfBasket = useMemo(() => {
-    return [
-      store.getState().basket.reduce((p, c) => p + c.price * c.count, 0), //price
-      store.getState().basket.reduce((p, c) => p + c.count, 0)            //count
-    ]
-  }, [store.getState().basket])
 
   return (
     <Layout head={<h1>Магазин</h1>}>

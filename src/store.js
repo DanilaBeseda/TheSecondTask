@@ -46,7 +46,7 @@ class Store {
   /**
    * Создание записи
    */
-  createItem() {
+  /* createItem() {
     const code = Math.max(0, ...this.state.items.map(item => item.code)) + 1;
     this.setState({
       items: this.state.items.concat({
@@ -54,23 +54,31 @@ class Store {
         title: 'Новая запись №' + code
       })
     });
-  }
+  } */
 
   /**
    * Удаление записи по её коду
    * @param code
    */
-  onAddGoods(item) {
+  addGoods(code) {
     const basket = [...this.state.basket]
-    const index = basket.findIndex(bItem => bItem.code === item.code)
+    const index = basket.findIndex(item => item.code === code)
 
     if (index === -1) {
+      const item = { ...this.state.items.find(item => item.code === code) }
       item.count = 1
       this.setState({ ...this.state, basket: basket.concat(item) });
     } else {
       basket[index].count++
       this.setState({ ...this.state, basket })
     }
+  }
+
+  getSumOfBasket() {
+    return [
+      this.state.basket.reduce((p, c) => p + c.price * c.count, 0), //price
+      this.state.basket.reduce((p, c) => p + c.count, 0)            //count
+    ]
   }
 }
 

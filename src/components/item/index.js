@@ -10,7 +10,7 @@ function Item({ item, onAdd }) {
     <div className='Item'>
       <ItemInfo item={item} />
       <div className='Item__actions'>
-        <button onClick={() => onAdd({ ...item })}>
+        <button onClick={() => onAdd(item.code)}>
           Добавить
         </button>
       </div>

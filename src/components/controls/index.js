@@ -5,6 +5,7 @@ import './styles.css';
 
 function Controls({ sumOfBasket, onClickBasket }) {
   console.log('Controls');
+
   return (
     <div className='Controls'>
       <div className='Controls__info'>В корзине: <b>
@@ -19,13 +20,13 @@ function Controls({ sumOfBasket, onClickBasket }) {
 }
 
 Controls.propTypes = {
-  sumOfBasket: propTypes.array.isRequired,
-  onClickBasket: propTypes.func.isRequired
+  onClickBasket: propTypes.func.isRequired,
+  sumOfBasket: propTypes.array.isRequired
 }
 
 Controls.defaultProps = {
-  sumOfBasket: [],
-  onClickBasket: () => { }
+  onClickBasket: () => { },
+  sumOfBasket: []
 }
 
 export default React.memo(Controls);
