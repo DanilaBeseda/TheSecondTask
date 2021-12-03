@@ -19,7 +19,7 @@ const store = new Store({
     { code: 7, title: 'Хлебушек', price: 70 }
   ],
   basket: [],
-  sumOfBasket: []
+  sumOfBasket: [0, 0]
 });
 
 // Сообщаем реакту что и куда рендерить.

@@ -67,22 +67,24 @@ class Store {
     if (index === -1) {
       const item = { ...this.state.items.find(item => item.code === code) }
       item.count = 1
+
       this.setState({ ...this.state, basket: basket.concat(item) });
+      this.setSumOfBasket(item.price)
     } else {
       basket[index].count++
+
       this.setState({ ...this.state, basket })
+      this.setSumOfBasket(basket[index].price)
     }
 
-    this.setSumOfBasket()
   }
 
-  setSumOfBasket() {
-    this.setState({
-      ...this.state, sumOfBasket: [
-        this.state.basket.reduce((p, c) => p + c.price * c.count, 0), //price
-        this.state.basket.reduce((p, c) => p + c.count, 0)            //count
-      ]
-    })
+  setSumOfBasket(price) {
+    const sum = [...this.state.sumOfBasket]
+    sum[0] += price
+    sum[1] += 1
+
+    this.setState({ ...this.state, sumOfBasket: sum })
   }
 }
 
