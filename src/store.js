@@ -71,14 +71,14 @@ class Store {
         sum[0] += item.price
       }
 
-      console.log(this.state.basket)
-
       return item
     })
 
     if (!isChanged) {
       const item = { ...this.state.items.find(item => item.code === code) }
-      basket.concat(item)
+
+      item.count = 1
+      basket.push(item)
       sum[0] += item.price
     }
 
