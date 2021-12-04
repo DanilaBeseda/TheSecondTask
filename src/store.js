@@ -61,25 +61,30 @@ class Store {
    * @param code
    */
   addGoods(code) {
-    const basket = [...this.state.basket]
-    const index = basket.findIndex(item => item.code === code)
     const sum = [...this.state.sumOfBasket]
+    let isChanged = false
+
+    const basket = this.state.basket.map(item => {
+      if (item.code === code) {
+        isChanged = true
+        item.count++
+        sum[0] += item.price
+      }
+
+      console.log(this.state.basket)
+
+      return item
+    })
+
+    if (!isChanged) {
+      const item = { ...this.state.items.find(item => item.code === code) }
+      basket.concat(item)
+      sum[0] += item.price
+    }
 
     sum[1]++
 
-    if (index === -1) {
-      const item = { ...this.state.items.find(item => item.code === code) }
-      item.count = 1
-      sum[0] += item.price
-
-      this.setState({ ...this.state, basket: basket.concat(item), sumOfBasket: sum });
-    } else {
-      basket[index].count++
-      sum[0] += basket[index].price
-
-      this.setState({ ...this.state, basket, sumOfBasket: sum })
-    }
-
+    this.setState({ ...this.state, basket, sumOfBasket: sum })
   }
 }
 
