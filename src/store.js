@@ -67,8 +67,8 @@ class Store {
     const basket = this.state.basket.map(item => {
       if (item.code === code) {
         isChanged = true
-        item.count++
         sum[0] += item.price
+        return { ...item, count: item.count + 1 }
       }
 
       return item
