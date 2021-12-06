@@ -32,6 +32,7 @@ function App({ store }) {
         basket={store.getState().basket}
         sumOfBasket={store.getState().sumOfBasket}
         onClickBasket={callbacks.onClickBasket}
+        onAdd={callbacks.onAddGoods}
       />}
     </Layout>
   );

@@ -17,4 +17,4 @@ ItemInfo.propTypes = {
    item: propTypes.object.isRequired
 }
 
-export default ItemInfo;
+export default React.memo(ItemInfo);

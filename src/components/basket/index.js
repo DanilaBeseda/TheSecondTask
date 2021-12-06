@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import ItemInfo from '../ItemInfo';
 import './styles.css';
 
-function Basket({ basket, sumOfBasket, onClickBasket }) {
+function Basket({ basket, onClickBasket, onAdd }) {
    console.log('Basket')
 
    return (
@@ -19,10 +19,11 @@ function Basket({ basket, sumOfBasket, onClickBasket }) {
                <li className='List__item Item' key={item.code}>
                   <ItemInfo item={item} />
                   <div className='Item__count'>{item.count} шт</div>
+                  <button onClick={() => onAdd(item.code)}>Добавить</button>
                </li>
             ))}
 
-               <b><li className='Item'>
+               {/* <b><li className='Item'>
                   <div className='Item__total'>Итого</div>
                   <div className='Item__price'>
                      {new Intl.NumberFormat('ru-RU').format(sumOfBasket[0])} ₽
@@ -30,7 +31,7 @@ function Basket({ basket, sumOfBasket, onClickBasket }) {
                   <div className='Item__count'>
                      {sumOfBasket[1]} шт
                   </div>
-               </li></b>
+               </li></b> */}
             </ul>
 
          </div>
@@ -40,14 +41,16 @@ function Basket({ basket, sumOfBasket, onClickBasket }) {
 
 Basket.propTypes = {
    basket: propTypes.arrayOf(propTypes.object).isRequired,
-   sumOfBasket: propTypes.array.isRequired,
-   onClickBasket: propTypes.func.isRequired
+   /*  sumOfBasket: propTypes.array.isRequired, */
+   onClickBasket: propTypes.func.isRequired,
+   onAdd: propTypes.func.isRequired
 }
 
 Basket.defaultProps = {
    basket: [],
-   sumOfBasket: [],
-   onClickBasket: () => { }
+   /*  sumOfBasket: [], */
+   onClickBasket: () => { },
+   onAdd: () => { }
 }
 
-export default Basket;
+export default React.memo(Basket);
